@@ -1,0 +1,108 @@
+<html>
+	<title> TRPG 骰骰試作 </title>
+
+	<style>
+		P {
+			font-family: 'helvetica neue', helvetica, sans-serif;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			text-align: center;
+			border: 2px solid rgba(0,0,200,0.6);
+			background: rgba(0,0,200,0.3);
+			color: rgba(0,0,200,0.6);
+			box-shadow: 1px 1px 2px rgba(0,0,200,0.4);
+			border-radius: 10px;
+			padding: 3px 10px;
+			display: inline-block;
+			cursor:pointer;
+		}
+	</style>
+<! --------------------------------------------------------------------------------------------------------->
+	<script type="text/javascript">
+		var A,B,re;
+
+		function rand(){
+			A = getFirstNumber();
+			B = getTwiceNumber();
+			P = getPlusNumber();			
+
+			ans = "";
+			
+			var ans_num = 0;
+
+			for(i = 0;i<A;i++){
+				var X = Math.floor(Math.random()*B) + 1;
+
+				ans_num = ans_num + X;
+				
+				if(i == 0){
+					ans = X;
+				}else{
+					ans = ans + " + " + X;
+				}
+
+			}
+			
+			ans_num = ans_num  + Math.floor(1*P);
+			ans = ans + " + " + P;
+
+			Process(ans);
+			total(ans_num);
+		}	
+		
+		function getFirstNumber() {
+			var firstNumber = document.getElementById("first").value;
+			return firstNumber;
+		}
+
+		function getTwiceNumber() {
+			var twiceNumber = document.getElementById("twice").value;
+			return twiceNumber;
+		}
+		
+		function getPlusNumber() {
+			var plusNumber = document.getElementById("plus").value;
+			return plusNumber;
+		}
+
+		function Process(re) {
+			
+			var num = document.getElementById("result");
+			
+			if(A==1 && P == 0){
+      				num.hidden = true;
+			}else{
+				num.hidden = false;
+			}
+			num.innerHTML = re;
+		}
+
+		function total(re) {
+			var num = document.getElementById("total")
+			num.innerHTML = re;
+		}
+
+	</script>
+<! --------------------------------------------------------------------------------------------------------->
+	<body>
+		<center>
+			<table><table border='0'>
+				<tr>
+				<h1>
+				<td>設定骰子：</td>
+    				<td><input type="text" id="first" /></td>
+    				<td>D</td>
+    				<td><input type="text" id="twice" /></td>
+				<td>+</td>
+				<td><input type="text" id="plus" /></td>
+  				</h1>
+				</tr>
+			</table>
+			<button id="btn" onclick="rand()">確定</button><br>
+			
+			<h1> <a id="result"> N/A </a>
+			<a id="result">=</a>
+			<p id="total"> N/A </p> </h1>
+		</center>
+	</body>
+</html>
